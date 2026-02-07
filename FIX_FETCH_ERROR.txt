@@ -1,0 +1,69 @@
+# ⚠️ FIXING "Failed to Fetch" ERROR
+
+## Problem:
+You're using the EDIT link: 
+https://docs.google.com/spreadsheets/d/1F1PNgP_9sRpTQmWz-yzmFLHN8M2ML_CiJr8t44_2evA/edit
+
+This won't work! You need the PUBLISHED CSV link.
+
+## Solution - Follow These Steps:
+
+### STEP 1: Open Your Sheet
+https://docs.google.com/spreadsheets/d/1F1PNgP_9sRpTQmWz-yzmFLHN8M2ML_CiJr8t44_2evA/edit?usp=sharing
+
+### STEP 2: Publish to Web
+1. Click "File" (top menu)
+2. Hover over "Share"
+3. Click "Publish to web"
+4. A dialog will open
+
+### STEP 3: Configure Publishing
+In the dialog:
+1. First dropdown: Select your sheet name (probably "Sheet1")
+2. Second dropdown: Change from "Web page" to "Comma-separated values (.csv)"
+3. Click the green "Publish" button
+4. Click "OK" on the confirmation
+
+### STEP 4: Copy the CORRECT URL
+After publishing, you'll see a URL like:
+https://docs.google.com/spreadsheets/d/e/2PACX-1vT...../pub?output=csv
+
+☝️ THIS is the URL you need! It starts with "/d/e/2PACX-"
+
+### STEP 5: Update config.js
+1. Open: config.js
+2. Find line: CSV_URL: 'PASTE_YOUR_PUBLISHED_CSV_URL_HERE',
+3. Replace with your published URL
+4. Make sure TEST_MODE: false,
+5. Save
+
+### STEP 6: Test
+Refresh index.html - should load your data!
+
+---
+
+## Quick Reference:
+
+❌ WRONG (Edit link):
+/d/1F1PNgP_9sRpTQmWz-yzmFLHN8M2ML_CiJr8t44_2evA/edit
+
+✅ CORRECT (Published CSV link):
+/d/e/2PACX-1vT[long-string]/pub?output=csv
+
+---
+
+## Still Not Working?
+
+### Option 1: Use Test Mode
+Set TEST_MODE: true in config.js to see it working with sample data first
+
+### Option 2: Check Your Sheet Format
+Make sure your sheet has these exact columns:
+Date | Participants | TournamentsPlayed | Teams | Winners
+
+Example:
+08-02-2026 | Naveen,Vardhan,Kishore,Vivek | 1 | Team A | 1-Naveen and Vardhan
+
+---
+
+Need more help? Let me know what step you're stuck on!

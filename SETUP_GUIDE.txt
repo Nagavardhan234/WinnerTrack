@@ -1,0 +1,66 @@
+========================================
+  QUICK SETUP GUIDE - WinnerTrack
+========================================
+
+YOUR SHEET: https://docs.google.com/spreadsheets/d/1F1PNgP_9sRpTQmWz-yzmFLHN8M2ML_CiJr8t44_2evA/edit
+
+STEP 1: PUBLISH YOUR SHEET
+---------------------------
+1. Open your Google Sheet (link above)
+2. Click "File" → "Share" → "Publish to web"
+3. In dropdown, select "CSV" (not "Web page")
+4. Click "Publish" button
+5. Copy the URL that appears (it will be long, starting with https://docs.google.com/spreadsheets/d/e/2PACX-...)
+
+STEP 2: UPDATE CONFIG.JS
+-------------------------
+1. Open: c:\Users\Naga Vardhan\OneDrive\Desktop\WinnerTrack\config.js
+2. Find line: CSV_URL: 'PASTE_YOUR_PUBLISHED_CSV_URL_HERE',
+3. Replace with your published URL
+4. Save the file
+
+STEP 3: TEST WITH FIRST MATCH
+------------------------------
+Your sheet should have this format:
+
+Date          | Participants              | TournamentsPlayed | Teams   | Winners
+08-02-2026    | Naveen,Vardhan,Kishore,Vivek | 1            | Team A  | 1-Naveen and Vardhan
+
+Open index.html in browser → You'll see:
+✨ First win celebration modal
+💪 Special motivation for winners
+🔒 "Play 2 more to unlock rankings" message
+
+STEP 4: ADD SECOND MATCH
+-------------------------
+Add new row to your sheet:
+
+15-02-2026 | Naveen,Vardhan,Kishore,Vivek | 2 | Team A, Team B | 1-Kishore and Vivek, 2-Vardhan and Kishore
+
+Refresh browser → You'll see:
+📈 Basic rankings appear
+🔥 "One more match to unlock streaks"
+💎 Early badges start appearing
+
+STEP 5: ADD THIRD MATCH
+------------------------
+22-02-2026 | Naveen,Vardhan,Kishore,Vivek | 2 | Team A, Team B | 1-Naveen and Vardhan, 2-Kishore and Vivek
+
+Refresh → Full features unlock:
+✅ Complete rankings
+✅ Streak tracking
+✅ Best duo tracking
+✅ All badges active
+
+========================================
+
+MOTIVATION PROGRESSION:
+
+Match 1: "Congratulations! Your journey begins! Win next week to start your streak!"
+Match 2: "Rankings unlocked! One more to unlock streak tracking!"
+Match 3: "Duo tracking unlocked! Keep playing to earn legendary badges!"
+Match 5+: Full motivation messages + rivalry tracking
+
+========================================
+
+Need help? Check README.md for full documentation.

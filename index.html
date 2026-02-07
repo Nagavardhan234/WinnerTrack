@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sunday Badminton Tournament Tracker - Track winners, rankings, and streaks">
+    <title>🏸 WinnerTrack - Badminton Tournament Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">🏸 WinnerTrack</h1>
+        </div>
+    </header>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading tournament data...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" class="error-state" style="display: none;">
+        <p class="error-message">⚠️ Failed to load data. Please check your connection and try again.</p>
+        <button class="retry-btn" onclick="location.reload()">Retry</button>
+    </div>
+
+    <!-- Welcome/Empty State -->
+    <div id="welcomeState" class="welcome-state" style="display: none;">
+        <div class="container">
+            <div class="welcome-hero">
+                <div class="hero-icon">🏸</div>
+                <h1 class="welcome-title">Welcome to WinnerTrack!</h1>
+                <p class="welcome-subtitle">Your Sunday badminton journey starts here</p>
+            </div>
+            
+            <div class="getting-started">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Play Your First Tournament</h3>
+                    <p>Grab a partner and compete this Sunday!</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Record Winners</h3>
+                    <p>Update Google Sheets with tournament results</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Watch Stats Grow</h3>
+                    <p>Earn badges, track streaks, climb rankings!</p>
+                </div>
+            </div>
+            
+            <div class="preview-section">
+                <h3>What You'll Unlock:</h3>
+                <div class="unlock-preview">
+                    <div class="unlock-item">
+                        <span class="unlock-icon">📈</span>
+                        <span class="unlock-text">Player Rankings</span>
+                    </div>
+                    <div class="unlock-item">
+                        <span class="unlock-icon">🔥</span>
+                        <span class="unlock-text">Win Streaks</span>
+                    </div>
+                    <div class="unlock-item">
+                        <span class="unlock-icon">🎯</span>
+                        <span class="unlock-text">Achievement Badges</span>
+                    </div>
+                    <div class="unlock-item">
+                        <span class="unlock-icon">🔗</span>
+                        <span class="unlock-text">Best Duos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- First Win Celebration Modal -->
+    <div id="firstWinModal" class="first-win-modal" style="display: none;">
+        <div class="modal-overlay" onclick="closeFirstWinModal()"></div>
+        <div class="modal-content">
+            <div class="confetti">🎉</div>
+            <h1>🏆 First Victory!</h1>
+            <p>Your tournament journey has begun!</p>
+            <div class="first-badge">
+                <span class="badge-icon-large">🌟</span>
+                <span class="badge-name">First Blood</span>
+            </div>
+            <p class="motivation-text">Come back next week to build your winning streak!</p>
+            <button class="modal-btn" onclick="closeFirstWinModal()">Continue</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="mainContent" class="main-content" style="display: none;">
+        
+        <!-- Last Updated Info -->
+        <section class="container">
+            <p class="last-updated" id="lastUpdated">Last updated: <span id="updateTime">--</span></p>
+        </section>
+
+        <!-- Latest Winners Section -->
+        <section class="latest-winners">
+            <div class="container">
+                <h2 class="section-title">🏆 Latest Winners</h2>
+                <p class="section-subtitle" id="latestDate">--</p>
+                <div id="latestWinnersGrid" class="winners-grid">
+                    <!-- Dynamic content loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Motivation Messages -->
+        <section class="motivation-section">
+            <div class="container">
+                <h3 class="section-title">💬 This Week's Storylines</h3>
+                <div id="motivationMessages" class="motivation-messages">
+                    <!-- Dynamic content loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Unlock Progress (for early game) -->
+        <section id="unlockProgress" class="unlock-progress-section" style="display: none;">
+            <div class="container">
+                <h3 class="section-title">🔓 Unlock New Features</h3>
+                <div id="unlockCards" class="unlock-cards">
+                    <!-- Dynamic content loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Player Leaderboard -->
+        <section class="leaderboard-section">
+            <div class="container">
+                <h2 class="section-title">📊 Player Rankings</h2>
+                <div id="leaderboard" class="leaderboard">
+                    <!-- Dynamic content loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Pair Performance -->
+        <section class="pairs-section">
+            <div class="container">
+                <h2 class="section-title">🔗 Best Duos</h2>
+                <div id="pairPerformance" class="pair-list">
+                    <!-- Dynamic content loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Tournament History -->
+        <section class="history-section">
+            <div class="container">
+                <h2 class="section-title">📜 Hall of Fame</h2>
+                <div id="tournamentHistory" class="history-list">
+                    <!-- Dynamic content loaded here -->
+                </div>
+                <button id="loadMoreBtn" class="load-more-btn" style="display: none;">
+                    Load More
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Made with 💪 for Sunday Warriors | Data auto-syncs from Google Sheets</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
