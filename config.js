@@ -5,8 +5,10 @@
 
 const CONFIG = {
     // TEST MODE - Set to true to use sample data (no Google Sheets needed)
-    // Set to false when you're ready to connect to Google Sheets
-    TEST_MODE: false,  // ← CHANGE THIS TO FALSE after pasting your URL below!
+    // Set to false when running on a web server with real Google Sheets
+    // NOTE: The Google Sheets URL works fine on GitHub Pages but fails when opening
+    //       index.html directly (file://) due to CORS. Use START_SERVER.bat to run locally.
+    TEST_MODE: false,  // False = use real Google Sheets (works on web server)
     
     // Google Sheets CSV URL
     // STEP 1: Go to your sheet
@@ -22,11 +24,26 @@ const CONFIG = {
     
     // Auto-refresh interval (in milliseconds)
     // Set to 0 to disable auto-refresh
-    AUTO_REFRESH_INTERVAL: 60000, // 60 seconds
+    AUTO_REFRESH_INTERVAL: 300000, // 5 minutes
     
     // Display settings
     MAX_HISTORY_ITEMS: 20, // Initial history items to show
     HISTORY_LOAD_MORE: 10, // Items to load on "Load More" click
+    
+    // Feature toggles
+    FEATURE_TOGGLES: {
+        SHOW_PARTICIPANTS: true,
+        SHOW_TIMELINE: true,
+        SHOW_SCHEDULED_TOURNAMENTS: true,
+        DATE_AWARE_MESSAGES: true
+    },
+    
+    // Display preferences
+    DISPLAY: {
+        MAX_PARTICIPANTS_INLINE: 8, // Show "X players" if more
+        MAX_TIMELINE_CARDS: 12, // Limit timeline view
+        RECENT_THRESHOLD_DAYS: 7 // Days to consider "recent"
+    },
     
     // Badge thresholds and configuration
     BADGES: {
@@ -54,6 +71,7 @@ const CONFIG = {
 };
 
 // Validate configuration on load
+// FIX BUG #33: Add comprehensive validation
 if (!CONFIG.TEST_MODE && CONFIG.CSV_URL === 'YOUR_GOOGLE_SHEETS_CSV_URL_HERE') {
     console.warn('⚠️ Please update the CSV_URL in config.js with your Google Sheets publish URL');
 }
@@ -62,3 +80,33 @@ if (CONFIG.TEST_MODE) {
     console.log('🧪 TEST MODE is enabled - Using sample data');
     console.log('💡 Set TEST_MODE to false in config.js to connect to Google Sheets');
 }
+
+// FIX BUG #33: Validate numeric settings
+(function validateConfig() {
+    const errors = [];
+    
+    if (CONFIG.AUTO_REFRESH_INTERVAL < 0) {
+        errors.push('AUTO_REFRESH_INTERVAL must be >= 0');
+    }
+    
+    if (CONFIG.MAX_HISTORY_ITEMS < 1) {
+        errors.push('MAX_HISTORY_ITEMS must be >= 1');
+    }
+    
+    if (CONFIG.DISPLAY.MAX_PARTICIPANTS_INLINE < 1) {
+        errors.push('MAX_PARTICIPANTS_INLINE must be >= 1');
+    }
+    
+    // Validate badge thresholds
+    if (CONFIG.BADGES.STREAK_THRESHOLD < 1) {
+        errors.push('STREAK_THRESHOLD must be >= 1');
+    }
+    
+    if (CONFIG.BADGES.CONSISTENCY_WIN_RATE < 0 || CONFIG.BADGES.CONSISTENCY_WIN_RATE > 100) {
+        errors.push('CONSISTENCY_WIN_RATE must be between 0-100');
+    }
+    
+    if (errors.length > 0) {
+        console.error('❌ Config validation errors:', errors.join(', '));
+    }
+})();

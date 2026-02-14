@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Sunday Badminton Tournament Tracker - Track winners, rankings, and streaks">
+    <meta name="theme-color" content="#FF6B35">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title>🏸 WinnerTrack - Badminton Tournament Tracker</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -115,6 +119,17 @@
             </div>
         </section>
 
+        <!-- Participant Display Section -->
+        <section id="participantsSection" class="participants-section" style="display: none;">
+            <div class="container">
+                <h2 class="section-title" id="participantsTitle">👥 Who Played</h2>
+                <p class="section-subtitle" id="participantsSubtitle"></p>
+                <div id="participantsList" class="participants-grid">
+                    <!-- Dynamic content loaded here -->
+                </div>
+            </div>
+        </section>
+
         <!-- Motivation Messages -->
         <section class="motivation-section">
             <div class="container">
@@ -150,6 +165,17 @@
             <div class="container">
                 <h2 class="section-title">🔗 Best Duos</h2>
                 <div id="pairPerformance" class="pair-list">
+                    <!-- Dynamic content loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Tournament Timeline -->
+        <section id="timelineSection" class="timeline-section">
+            <div class="container">
+                <h2 class="section-title">📅 Tournament Timeline</h2>
+                <p class="section-subtitle">Past, present, and upcoming tournaments</p>
+                <div id="tournamentTimeline" class="timeline-container">
                     <!-- Dynamic content loaded here -->
                 </div>
             </div>
