@@ -1823,6 +1823,74 @@ section {
     font-size: 14px;
 }
 
+.participant-chip.registered-next {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    border-color: #10b981;
+    font-weight: 600;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.participant-chip.registered-next .participant-icon {
+    animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+/* Participants Legend */
+.participants-legend {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.legend-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    border: 2px solid transparent;
+}
+
+.legend-badge.registered {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    border-color: #10b981;
+    color: #065f46;
+}
+
+.legend-badge.regular {
+    background: var(--bg-card);
+    border-color: var(--border);
+    color: var(--text-primary);
+}
+
+.legend-text {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
 /* Leaderboard Controls */
 .leaderboard-controls .controls-row {
     display: flex;
@@ -1969,6 +2037,37 @@ section {
     font-weight: 500;
     display: inline-block;
     backdrop-filter: blur(10px);
+    margin-bottom: var(--space-md);
+}
+
+.looking-participants-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center;
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
+}
+
+.looking-participant-chip {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.looking-participant-chip:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Print Styles */

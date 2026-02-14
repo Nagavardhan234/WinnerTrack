@@ -1169,7 +1169,7 @@ function renderLatestWinners() {
                 <div class="looking-date-badge">${formatDate(latestDate)}</div>
                 ${latestEntry.participants && latestEntry.participants.length > 0 ? `
                     <div class="looking-participants-count">
-                        🏸 ${latestEntry.participants.length} players registered
+                        👥 ${latestEntry.participants.length} players registered
                     </div>
                 ` : ''}
             </div>
@@ -1372,8 +1372,34 @@ function renderParticipants() {
     // Sort alphabetically
     const participantsArray = Array.from(allParticipants).sort();
     
+    // Get latest tournament's registered participants ONLY if it's scheduled (no winners yet)
+    const latestEntry = tournamentData[0];
+    const isLatestScheduled = latestEntry && 
+                              (latestEntry.state === 'scheduled' || 
+                               !latestEntry.winner1 || 
+                               !latestEntry.winner2);
+    
+    const registeredForNext = isLatestScheduled 
+        ? new Set(latestEntry.participants || []) 
+        : new Set();
+    
+    // Show legend if there are registered players for upcoming tournament (not completed yet)
+    const legendHTML = registeredForNext.size > 0 ? `
+        <div class="participants-legend">
+            <div class="legend-item">
+                <span class="legend-badge registered">✅ Registered</span>
+                <span class="legend-text">${registeredForNext.size} player${registeredForNext.size === 1 ? '' : 's'} for upcoming tournament</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-badge regular">🏸 Regular</span>
+                <span class="legend-text">All other participants</span>
+            </div>
+        </div>
+    ` : '';
+    
     // Render with search box
     container.innerHTML = `
+        ${legendHTML}
         <div class="participants-search-box">
             <input type="text" 
                    id="participantsSearch" 
@@ -1386,10 +1412,12 @@ function renderParticipants() {
             ${participantsArray.map(participant => {
                 // Check if has wins
                 const hasWins = playerStats.some(p => p.name === participant && p.totalWins > 0);
-                return `<span class="participant-chip ${hasWins ? 'has-wins' : ''}" 
+                // Check if registered for next tournament
+                const isRegistered = registeredForNext.has(participant);
+                return `<span class="participant-chip ${hasWins ? 'has-wins' : ''} ${isRegistered ? 'registered-next' : ''}" 
                              data-name="${participant.toLowerCase()}" 
-                             title="${hasWins ? '🏆 Has wins' : 'Participant'}">
-                            <span class="participant-icon">🏸</span>
+                             title="${isRegistered ? '✅ Registered for upcoming tournament' : hasWins ? '🏆 Has wins' : 'Participant'}">
+                            <span class="participant-icon">${isRegistered ? '✅' : '🏸'}</span>
                             <span>${participant}</span>
                         </span>`;
             }).join('')}
